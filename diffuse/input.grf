@@ -1,0 +1,9 @@
+-850 512 0.4046 150.0e6 62.5e3 129.0 256 20 95.0 0.8 0.1 513.0e-06 2.34
+psnobeamunity.dat psbeamunity.dat 
+
+#L and theta0 should be in arcmin
+//reading input parameter
+  // seed, No. of grid points, resolution in arcmin, central freq., channel reolution., chan0, number of channel, 
+  // No. of bin in power spec, 
+  //theta0 for power spectrum normalization, sp. index for freq. scaling A_150 betav
+  //Name of power spectrum data file without and with PB

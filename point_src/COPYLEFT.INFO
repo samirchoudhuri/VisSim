@@ -1,0 +1,30 @@
+# In this text file the character '#' is used to identify
+# the lines that are comments and the cfharacter '$' is 
+# used to identofy the lines which are used to be printed
+# as copyleft information during the execution of the code.
+# -------------------------------------------------------------
+#
+$ ======================= COPYLEFT INFO ======================= $
+$ CODE NAME:	  visfits					$
+$ DEVELOPED BY:   Prasun Dutta					$
+$ 	    	  Indian Institute of Science Education 	$
+$		  and Research, Bhopal	      			$
+$		  ITI Gas Rahat Building, Govindpura		$
+$		  Bhopal, Madhya Pradesh			$
+$		  PIN : 462023					$
+$		  INDIA						$
+$ EMAIL:	  prasun@iiserb.ac.in				$	  
+$ PURPOSE:	  Generate uv fits data format for different	$
+$ 		  input data  	   	    			$	
+$ VERSION:	  CHECK version infor for version number.	$	  
+$ COPYLEFT INFO:  This is a free copy of the code. Can be used	$
+$ 	   	  by anybody with proper credit given to the	$
+$		  author. Distributed under GPL.      	 	$
+$ THANKS:	  Ue-Li Pen, Gregory Paciga, CITA		$
+$ 		  Jayaram N. Chengalure, Jayanta Roy, NCRA	$
+$		  Wasim Raja, RRI 	 	      		$
+$		  Nissim Kanekar, NCRA				$
+$		  Somnath Bharadwaj, IIT Kgp			$
+$		  Samir Chowdhury, IIT Kgp			$
+$ ==================== ENDS COPYLEFT INFO =====================	$
+

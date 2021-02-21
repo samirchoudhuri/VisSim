@@ -1,0 +1,32 @@
+# ==================== TELESCOPE PARAMEERS ===========================
+# VALUE ----------------  PARAM  --TYP-- COMMENT ---------------------
+#
+  GMRT			: TELESC   (S)   TELESCOPE name
+  GMRT_ANT.DAT		: ANTFILE  (S)	 TELE antenna parameter file
+  19 06 00		: TELE_LAT_(F) 	 Tel latitude     (DD MnMn SS)
+  74 03 00		: TELE_LON_(F)	 Tel longitude    (DD MnMn SS)
+# ____________________________________________________________________
+# ==================== FREQENCY PARAMEERS ============================
+# VALUE ----------------  PARAM  --TYP-- COMMENT ---------------------
+#
+  150.0			: FREQOBS  (F)	 1st freq channel (UNIT : MHz)
+  16.  			: BWOBS	   (F)	 Obs. bandwidth   (UNIT : MHz)
+  150.0			: RESTFREQ (D)	 Line rest freq   (UNIT : MHz)
+# ____________________________________________________________________
+# ==================== OBSERVATION PARAMEERS =========================
+# VALUE ----------------  PARAM  --TYP-- COMMENT ---------------------
+#
+  PRASUN		: NAMEOBS  (S)   Observer Name  
+  128			: NCHAN    (I)	 No. of channels
+  16.			: INTIME   (F)	 Integration time (UNIT : Sec)
+  12 02 2007		: DOS	   (I)	 Date of observ.  (DD MM YYYY)
+  21 00	00		: STTIM    (F)	 Start OBS (GMT)  (HH MnMn SS)
+  0.0 -950		: SIG_A	  seedA (F L)	 Antenna based gain error amp
+  0.0 -1050	        : SIG_P	  seedP (F L)	 do Phase
+  1.03 -850		: SIG_N	  seedN (F L)	 Noise standard dev
+  0.0			: SIG_Acont
+  0.0			: SIG_Pcont
+  8			: NTbin
+  0.0 -955		:sigpos seedpos
+  3000. -855 0.		:Umax in lambda seedran flagran(1=randomUV)
+# ____________________________________________________________________
