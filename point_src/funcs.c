@@ -553,8 +553,8 @@ void Write_SU_TABLE(char *FITSFILE){
        } ;
   
   char *tform[tfields] = 
-    { "1J   ", "16A", "1J ", "4A ", "2E ", "2E ", "2E ", "2E ", "2D ", 
-      "1D ", "1D ", "1D ", "1D ", "1D ", "1D ", "2D ", "2D ", "1D ", "1D "
+    { "1J   ", "16A", "1J ", "4A ", "1E ", "1E ", "1E ", "1E ", "1D ", 
+      "1D ", "1D ", "1D ", "1D ", "1D ", "1D ", "1D ", "1D ", "1D ", "1D "
     } ;
   
   char *tunit[tfields] =
@@ -590,16 +590,25 @@ void Write_SU_TABLE(char *FITSFILE){
     printerror(status);
 
   int ii, qual ;
-  float iflux[2],qflux[2],uflux[2],vflux[2];
-  double freq_off[2], bandwidth;
-  double lsrvel[2], rest_freq[2], pmra, pmdec ;
+  float *iflux,*qflux,*uflux,*vflux;
+  double *freq_off, bandwidth;
+  double *lsrvel, *rest_freq, pmra, pmdec ;
   char *source, *calc;
+
+  iflux = (float *)calloc(NSIDE, sizeof(float));
+  qflux = (float *)calloc(NSIDE, sizeof(float));
+  uflux = (float *)calloc(NSIDE, sizeof(float));
+  vflux = (float *)calloc(NSIDE, sizeof(float));
+  
+  freq_off = (double *)calloc(NSIDE, sizeof(double));
+  lsrvel   = (double *)calloc(NSIDE, sizeof(double));
+  rest_freq = (double *)calloc(NSIDE, sizeof(double));
   
   qual = 0; 
   bandwidth = BWOBS*1.e6;
-  for(ii=0; ii<2; ii++)
+  for(ii=0; ii<NSIDE; ii++)
     iflux[ii] = qflux[ii] = uflux[ii] = vflux[ii] = 0.;
-  for(ii=0; ii<2; ii++)
+  for(ii=0; ii<NSIDE; ii++)
     freq_off[ii] = lsrvel[ii] = rest_freq[ii] = 0.;
   pmra = pmdec = 0.;
 
@@ -629,7 +638,7 @@ void Write_SU_TABLE(char *FITSFILE){
     SOUDC = HMS2D(SOUDC_DD, SOUDC_Mm, SOUDC_SS)/15.;
       
     if(CALCOD[0]!='C')
-      sprintf(CALCOD, NULL);
+      sprintf(CALCOD, " ");
     sprintf(source, "%s", SOUNAM);
     strncpy(calc, CALCOD, 4);
     replace_nulls(source, 16);    
@@ -643,15 +652,15 @@ void Write_SU_TABLE(char *FITSFILE){
       printerror(status);
     if(fits_write_col(fptr, TSTRING,  4, row, 1,  1, &calc,      &status))
       printerror(status);
-    if(fits_write_col(fptr, TFLOAT,   5, row, 1,  2, &iflux,       &status))
+    if(fits_write_col(fptr, TFLOAT,   5, row, 1,  1, &iflux,       &status))
       printerror(status);
-    if(fits_write_col(fptr, TFLOAT,   6, row, 1,  2, &qflux,       &status))
+    if(fits_write_col(fptr, TFLOAT,   6, row, 1,  1, &qflux,       &status))
       printerror(status);
-    if(fits_write_col(fptr, TFLOAT,   7, row, 1,  2, &uflux,       &status))
+    if(fits_write_col(fptr, TFLOAT,   7, row, 1,  1, &uflux,       &status))
       printerror(status);
-    if(fits_write_col(fptr, TFLOAT,   8, row, 1,  2, &vflux,       &status))
+    if(fits_write_col(fptr, TFLOAT,   8, row, 1,  1, &vflux,       &status))
       printerror(status);
-    if(fits_write_col(fptr, TDOUBLE,  9, row, 1,  2, &freq_off,    &status))
+    if(fits_write_col(fptr, TDOUBLE,  9, row, 1,  1, &freq_off,    &status))
       printerror(status);
     if(fits_write_col(fptr, TDOUBLE, 10, row, 1,  1, &bandwidth,   &status))
       printerror(status);
@@ -665,7 +674,7 @@ void Write_SU_TABLE(char *FITSFILE){
       printerror(status);
     if(fits_write_col(fptr, TDOUBLE, 15, row, 1,  1, &SOUDC,       &status))
       printerror(status);
-    if(fits_write_col(fptr, TDOUBLE, 16, row, 1,  2, &lsrvel,      &status))
+    if(fits_write_col(fptr, TDOUBLE, 16, row, 1,  1, &lsrvel,      &status))
       printerror(status);
     if(fits_write_col(fptr, TDOUBLE, 17, row, 1,  1, &rest_freq,   &status))
       printerror(status);
