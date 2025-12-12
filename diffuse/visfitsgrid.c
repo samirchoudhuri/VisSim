@@ -46,9 +46,11 @@ int main(int argc, char *argv[])
   printf("Image Header\n");
   SREAD_HDR(IMAGEFITS);
   N=naxesim[0];n_ave=naxesim[2];
-  dU=(double) ((180.*60.)/(M_PI*N*CDELT[0]));
+  if(CDELT[0] < 0.)
+    CDELT[0] *= -1;
+  dU=(double) (180./(M_PI*N*CDELT[0]));
 
-  printf("pixel=%lf arcmin naxes image={%ld,%ld,%ld}\ndU=%e\n",CDELT[0],naxesim[0],naxesim[1],naxesim[2],dU);
+  printf("pixel=%lf deg naxes image={%ld,%ld,%ld}\ndU=%e\n",CDELT[0],naxesim[0],naxesim[1],naxesim[2],dU);
   printf("N=%d n_ave=%d\n",N,n_ave);
 
   //read image and FFT and fill in a array
@@ -108,7 +110,7 @@ int main(int argc, char *argv[])
   //put grid value in UV track
   float randpar[3],*data;
   long group;
-  long nel,el1=1;
+  long nel,el1=1,eln=3;
   double uuc,vvc,signv;
   int stokes,anynul=0;
   float nulval1=0;
@@ -135,10 +137,11 @@ int main(int argc, char *argv[])
   fits_open_file(&fptr,UVFITS,READWRITE,&status);
   for(group=1;group<=gcount;group++)
     {
-      fits_read_grppar_flt(fptr,group,el1,3,randpar,&status);
+      fits_read_grppar_flt(fptr,group,el1,eln,randpar,&status);
+       printerror(status);
       //rand parameter read done    
       signv= (randpar[1]<0.) ? -1. : 1. ;
-            
+          
       fits_read_img_flt(fptr,group,el1,nel,nulval1,data,&anynul,&status);
       
       for(chan=0;chan<n_ave;chan++)
@@ -151,11 +154,12 @@ int main(int argc, char *argv[])
       
       for(chan=0;chan<n_ave;chan++)
 	{
-	  uuc=signv*randpar[0]*corrfact[chan];
-	  vvc=signv*randpar[1]*corrfact[chan];
+	  //uuc=signv*randpar[0]*corrfact[chan];
+	  //vvc=signv*randpar[1]*corrfact[chan];
 	  
-	  //uuc=signv*randpar[0]*corrfact[chan]*nu_chan0;
-	  //vvc=signv*randpar[0]*corrfact[chan]*nu_chan0;
+	  
+	  uuc=signv*randpar[0]*corrfact[chan]*nu_chan0;
+	  vvc=signv*randpar[0]*corrfact[chan]*nu_chan0;
 
 	  if(abs(uuc)<(N*dU/2.) && abs(vvc)<(N*dU/2.))
 	    {
