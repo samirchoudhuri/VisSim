@@ -102,7 +102,18 @@ void SREAD_HDR(char *infile)
 {
   fitsfile *fitsp;
   int nfound;
+  int naxis_img;
+
+  
   fits_open_file(&fitsp,infile,READONLY,&status);
+  fits_read_key(fitsp, TINT, "NAXIS", &naxis_img, NULL, &status);
+
+  if(naxis_img != naxis)
+    {
+      printf("image dimension is %d, should be %d\n",naxis_img,naxis);
+      exit(0);
+    }
+  
   fits_read_keys_lng(fitsp,"NAXIS",1,naxis,naxesim,&nfound,&status);
   fits_read_keys_dbl(fitsp,"CDELT",1,naxis,CDELT,&nfound,&status);
   fits_close_file(fitsp,&status);
